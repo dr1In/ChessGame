@@ -1,6 +1,3 @@
-from typing import ValuesView
-
-
 class Board():
     def __init__(self, view: list(), coords: list()):
         self.view = view
