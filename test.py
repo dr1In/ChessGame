@@ -1,4 +1,13 @@
 class Car():
-    pass
+    def __init__(self, name: str()):
+        self.name = name
 
-car = Car()
+class smallCar(Car):
+    def get_name(self):
+        print(self.name)
+
+s = {'car': smallCar}
+
+car = s['car']('audi')
+
+car.get_name()

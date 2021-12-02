@@ -1,5 +1,5 @@
 class Board():
-    def __init__(self, view: list(), coords: list()):
+    def __init__(self, view: list(), coords: list(), kings: dict()):
         self.view = view
         self.figures_coords = coords
     
@@ -13,6 +13,9 @@ class Board():
 
     def get_figures_coords(self):
         print(self.figures_coords)
+
+    def get_kings_position(self):
+        pass
 
 
 class Figure():
@@ -60,11 +63,15 @@ def First_realize():
 
 
 def Board_view_decorate(current_view: list()):
-    print('     A   B   C   D   E   F   G   H  ')
     line_spacing = '   ' + '+---' * 8 + '+'
     for line in range(len(current_view)):
         print(line_spacing)
         print(' {} '.format(line + 1) + '|' + '|'.join(current_view[line]) + '|')
     print(line_spacing)
-        
+    print('     A   B   C   D   E   F   G   H  ')    
 
+
+def Pawn_movement(current_place: list(), team: str()):
+    max_move = 0
+    if team == 'white':
+        if 
