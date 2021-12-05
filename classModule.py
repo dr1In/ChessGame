@@ -71,7 +71,23 @@ def Board_view_decorate(current_view: list()):
     print('     A   B   C   D   E   F   G   H  ')    
 
 
-def Pawn_movement(current_place: list(), team: str()):
-    max_move = 0
+def Xunconvert(x: str()):
+    xlable = {f'{chr(i + 97)}': i for i in range(8)}
+    return xlable[x]
+
+
+def Xconvert(x: str()):
+    xlable = {i: f'{chr(i + 97)}' for i in range(8)}
+    return xlable[x]
+
+
+def Pawn_movement(current_place: dict(), team: str(), all_coords: list()):
+    (x, y, moves) = (Xunconvert(current_place['x']), int(current_place['y']), [])
     if team == 'white':
-        if 
+        if y <= 6 and all_coords[x][y - 1] == None:
+            moves.append(Xconvert(x) + str(y - 1))
+        elif y > 6:
+            if all_coords[x][y - 1] == None and all_coords[x][y - 2] == None:
+                moves.append(Xconvert(x) + str(y - 1))
+            moves.append(Xconvert(x) + str(y - 2))
+    return moves
