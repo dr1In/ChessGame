@@ -1,6 +1,3 @@
-from os import system
-
-
 x_axis = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
 y_axis = ['1', '2', '3', '4', '5', '6', '7', '8']
 
@@ -179,3 +176,20 @@ def Bishop_movement(place: dict(), team: str(), all_coords: dict()):
             break
         else: break
     return moves
+
+
+def Knight_movement(place: dict(), team: str(), all_coords: dict()):
+    (x, y, moves) = (x_axis.index(place[0]) + 1, int(place[-1]), [])
+    moves_checker = [(-2, 1), (-1, 2), (1, 2), (2, 1), (2, -1), (1, -2), (-1, -2), (-2, -1)]
+    for axis in moves_checker:
+        (xd, yd) = (x + axis[0], y + axis[-1])
+        if 0 < xd < 9 and 0 < yd < 9 and all_coords[y_axis[yd - 1]][x_axis[xd - 1]] is None:
+            moves.append(f'{x_axis[xd - 1]}{yd}')
+        elif 0 < xd < 9 and 0 < yd < 9 and all_coords[y_axis[yd - 1]][x_axis[xd - 1]] is not None and all_coords[y_axis[yd - 1]][x_axis[xd - 1]].get_team() != team:
+            moves.append(f'{x_axis[xd - 1]}{yd}')
+    return moves
+
+ 
+def Rook_movement(place: dict(), team: str(), all_coords: dict()):
+    (x, y, moves) = (x_axis.index(place[0]) + 1, int(place[-1]), [])
+    pass
