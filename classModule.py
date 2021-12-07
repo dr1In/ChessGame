@@ -1,16 +1,21 @@
+from os import system
+
+
+x_axis = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+y_axis = ['1', '2', '3', '4', '5', '6', '7', '8']
+
 class Board():
-    def __init__(self, view: list(), coords: list(), kings: dict()):
-        self.view = view
-        self.figures_coords = coords
+    def __init__(self, coords: dict()):
+        self.fugeres_coords = coords
     
-    def update(self):
+    def show(self):
         for_show = [[None for _ in range(8)] for __ in range(8)]
         for y in range(8):
             for x in range(8):
-                if self.figures_coords[x][y] != None: for_show[x][y] = self.view[self.figures_coords[x][y].get_team()][self.figures_coords[x][y].get_type()]
-                else: for_show[x][y] = '   '
-        return for_show
-
+                if self.fugeres_coords[y_axis[y]][x_axis[x]] is None: for_show[y][x] = '   '
+                else: for_show[y][x] = self.fugeres_coords[y_axis[y]][x_axis[x]].get_symbol()
+        Board_view_decorate(for_show)
+        
     def get_figures_coords(self):
         return self.figures_coords
 
@@ -18,21 +23,26 @@ class Board():
         pass
 
     def get_figure_type_on_place(self, coords: dict()):
-        (x, y) = (Xunconvert(coords['x']), coords['y'])
-        return self.figures_coords[y][x].get_type()
+        pass
+
+    def change_places(self, new: str()):
+        pass
 
 
 class Figure():
-    def __init__(self, position: list(), figure_type: str(), team: str()):
-        self.position = position
+    def __init__(self, figure_type: str(), team: str(), symbol: str()):
         self.type = figure_type
         self.team = team
+        self.symbol = symbol
 
     def get_team(self):
         return self.team
 
     def get_type(self):
         return self.type
+
+    def get_symbol(self):
+        return self.symbol
 
 
 def Team_init():
@@ -45,7 +55,7 @@ def Team_init():
         'pawn': ' ♙ '
         }
     figuresBlack = {
-        'king': ' ♚ ',
+        'king': ' ♚ ', 
         'queen': ' ♛ ',
         'rook': ' ♜ ',
         'bishop': ' ♝ ',
@@ -56,13 +66,15 @@ def Team_init():
 
 
 def First_realize():
-    coords = [[None for _ in range(8)] for __ in range(8)]
-    inithelper = ['rook', 'knight', 'bishop','king','queen','bishop','knight', 'rook', 'pawn']
-    for x in range(8):
-        coords[0][x] = Figure([x, 0], inithelper[x], 'black')
-        coords[1][x] = Figure([x, 1], inithelper[-1], 'black')
-        coords[8-1][x] = Figure([x, 0], inithelper[x], 'white')
-        coords[8-2][x] = Figure([x, 1], inithelper[-1], 'white')
+    symboles = Team_init()
+    coords = {f'{__ + 1}': {chr(97 + _): None for _ in range(8)} for __ in range(8)}
+    helper = ['rook', 'knight', 'bishop','king','queen','bishop','knight', 'rook']
+    for x in zip(x_axis, helper):
+        coords['1'][x[0]] = Figure(x[-1], 'black', symboles['black'][x[-1]])
+        coords['2'][x[0]] = Figure('pawn', 'black', symboles['black']['pawn'])
+        coords['7'][x[0]] = Figure('pawn', 'white', symboles['white']['pawn'])
+        coords['8'][x[0]] = Figure(x[-1], 'white', symboles['white'][x[-1]])
+
     return coords
 
 
@@ -75,28 +87,7 @@ def Board_view_decorate(current_view: list()):
     print('     A   B   C   D   E   F   G   H  ')    
 
 
-def Xunconvert(x: str()):
-    xlable = {f'{chr(i + 97)}': i for i in range(8)}
-    return xlable[x]
-
-
-def Xconvert(x: str()):
-    xlable = {i: f'{chr(i + 97)}' for i in range(8)}
-    return xlable[x]
-
-
 def Pawn_movement(current_place: dict(), team: str(), all_coords: list()):
-    (x, y, moves) = (Xunconvert(current_place['x']), int(current_place['y']), [])
-    if team == 'white':
-        if y <= 6 and all_coords[x][y - 1] == None:
-            moves.append(Xconvert(x) + str(y - 1))
-        elif y > 6:
-            if all_coords[x][y - 1] == None and all_coords[x][y - 2] == None:
-                moves.append(Xconvert(x) + str(y - 1))
-                moves.append(Xconvert(x) + str(y - 2))
-            elif all_coords[x][y - 1] == None:
-                moves.append(Xconvert(x) + str(y - 1))
-    elif team == 'black':
-        pass
+    moves = []
 
     return moves
