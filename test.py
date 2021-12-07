@@ -1,3 +1,3 @@
-x_axis = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
 
-print(x_axis[x_axis.index('b') - 1])
+for _ in range(4, 1, -1):
+    print(_)

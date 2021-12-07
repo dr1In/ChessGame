@@ -8,7 +8,8 @@ def main():
     board.show()
     
     movements = {
-        'pawn': Pawn_movement
+        'pawn': Pawn_movement,
+        'bishop': Bishop_movement
     }
 
     #print(board.get_figures_coords())
@@ -26,9 +27,7 @@ def main():
                 cur_place, want = map(str, input('Невозможный ход, повторите попытку: ').split())
                 check = not check
                 continue
-            print('1')
-            if want not in movements[board.get_figure_type_on_place(cur_place)](cur_place, team_now, board.get_figures_coords()) and team_now != board.get_figure_team_on_place(cur_place):             
-                print('2')
+            if want not in movements[board.get_figure_type_on_place(cur_place)](cur_place, team_now, board.get_figures_coords()):             
                 cur_place, want = map(str, input('Невозможный ход, повторите попытку: ').split())
                 check = not check
                 continue

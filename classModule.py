@@ -49,10 +49,6 @@ class Figure():
         return self.symbol
 
 
-def None_checker(place):
-    pass
-
-
 def Team_init():
     figuresWhite = {
         'king': ' ♔ ',
@@ -104,7 +100,6 @@ def Pawn_movement(place: dict(), team: str(), all_coords: dict()):
                 moves.append(x + f'{y - 2}')
         elif y < 7 and y >= 2 and all_coords[f'{y - 1}'][x] is None:
             moves.append(x + f'{y - 1}')
-            print(moves)
         moves += Pawn_kill(place, team, all_coords)
     else:
         if y == 2:
@@ -142,4 +137,45 @@ def Pawn_kill(place: dict(), team: str(), all_coords: dict()):
         elif x == 7 and all_coords[y][x_axis[x - 1]] is not None and all_coords[y][x_axis[x - 1]].get_team() != team:
             moves.append(x_axis[x - 1] + y)
     
+    return moves
+
+
+def Bishop_movement(place: dict(), team: str(), all_coords: dict()):
+    (x, y, moves) = (x_axis.index(place[0]), int(place[-1]) - 1, [])
+    (xd, yd) = (x, y)
+    while xd < 7 and yd < 7:
+        xd += 1
+        yd += 1
+        if all_coords[y_axis[yd]][x_axis[xd]] is None: moves.append(x_axis[xd] + y_axis[yd])
+        elif all_coords[y_axis[yd]][x_axis[xd]] is not None and all_coords[y_axis[yd]][x_axis[xd]].get_team() != team:
+            moves.append(x_axis[xd] + y_axis[yd])
+            break
+        else: break
+    (xd, yd) = (x, y)
+    while xd > 0 and yd < 7:
+        xd -= 1
+        yd += 1
+        if all_coords[y_axis[yd]][x_axis[xd]] is None: moves.append(x_axis[xd] + y_axis[yd])
+        elif all_coords[y_axis[yd]][x_axis[xd]] is not None and all_coords[y_axis[yd]][x_axis[xd]].get_team() != team:
+            moves.append(x_axis[xd] + y_axis[yd])
+            break
+        else: break
+    (xd, yd) = (x, y)
+    while xd < 7 and yd > 0:
+        xd += 1
+        yd -= 1
+        if all_coords[y_axis[yd]][x_axis[xd]] is None: moves.append(x_axis[xd] + y_axis[yd])
+        elif all_coords[y_axis[yd]][x_axis[xd]] is not None and all_coords[y_axis[yd]][x_axis[xd]].get_team() != team:
+            moves.append(x_axis[xd] + y_axis[yd])
+            break
+        else: break
+    (xd, yd) = (x, y)
+    while xd > 0 and yd > 0:
+        xd -= 1
+        yd -= 1
+        if all_coords[y_axis[yd]][x_axis[xd]] is None: moves.append(x_axis[xd] + y_axis[yd])
+        elif all_coords[y_axis[yd]][x_axis[xd]] is not None and all_coords[y_axis[yd]][x_axis[xd]].get_team() != team:
+            moves.append(x_axis[xd] + y_axis[yd])
+            break
+        else: break
     return moves
