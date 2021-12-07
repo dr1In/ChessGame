@@ -1,6 +1,5 @@
-import os
 from classModule import *
-from os import kill, system
+from os import system
 
 def main():
     team_now = 'black'
@@ -12,7 +11,6 @@ def main():
         'pawn': Pawn_movement
     }
 
-
     #print(board.get_figures_coords())
     print('Пример хода: a2 a4')
 
@@ -20,13 +18,24 @@ def main():
         if team_now == 'black': team_now = 'white'
         else: team_now = 'black'
 
+        check = False
         cur_place, want = map(str, input('Ход команды {}: '.format(team_now)).split())
-        while want not in movements[board.get_figure_type_on_place(cur_place)](cur_place, team_now, board.get_figures_coords()):
-            print('Невозможный ход, повторите попытку: ')
-            cur_place, want = map(str, input().split())
-        else: board.swap(cur_place, want, False)
+        while not check:
+            check = not check
+            if board.get_figures_coords()[cur_place[-1]][cur_place[0]] is None:
+                cur_place, want = map(str, input('Невозможный ход, повторите попытку: ').split())
+                check = not check
+                continue
+            print('1')
+            if want not in movements[board.get_figure_type_on_place(cur_place)](cur_place, team_now, board.get_figures_coords()) and team_now != board.get_figure_team_on_place(cur_place):             
+                print('2')
+                cur_place, want = map(str, input('Невозможный ход, повторите попытку: ').split())
+                check = not check
+                continue
+        
+        board.swap(cur_place, want)        
 
-        system('CLS')
+        #system('CLS')
         board.show()
 
     print('Игра окончена')
