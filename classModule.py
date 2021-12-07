@@ -12,10 +12,14 @@ class Board():
         return for_show
 
     def get_figures_coords(self):
-        print(self.figures_coords)
+        return self.figures_coords
 
     def get_kings_position(self):
         pass
+
+    def get_figure_type_on_place(self, coords: dict()):
+        (x, y) = (Xunconvert(coords['x']), coords['y'])
+        return self.figures_coords[y][x].get_type()
 
 
 class Figure():
@@ -89,5 +93,10 @@ def Pawn_movement(current_place: dict(), team: str(), all_coords: list()):
         elif y > 6:
             if all_coords[x][y - 1] == None and all_coords[x][y - 2] == None:
                 moves.append(Xconvert(x) + str(y - 1))
-            moves.append(Xconvert(x) + str(y - 2))
+                moves.append(Xconvert(x) + str(y - 2))
+            elif all_coords[x][y - 1] == None:
+                moves.append(Xconvert(x) + str(y - 1))
+    elif team == 'black':
+        pass
+
     return moves
