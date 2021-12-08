@@ -191,5 +191,38 @@ def Knight_movement(place: dict(), team: str(), all_coords: dict()):
 
  
 def Rook_movement(place: dict(), team: str(), all_coords: dict()):
-    (x, y, moves) = (x_axis.index(place[0]) + 1, int(place[-1]), [])
-    pass
+    (x, y, moves) = (x_axis.index(place[0]), int(place[-1]) - 1, [])
+    for xd in range(x - 1, -1, -1):
+        if all_coords[y_axis[y]][x_axis[xd]] is None:
+            moves.append(x_axis[xd] + y_axis[y])
+        elif all_coords[y_axis[y]][x_axis[xd]] is not None and all_coords[y_axis[y]][x_axis[xd]].get_team() != team:
+            moves.append(x_axis[xd] + y_axis[y])
+            break
+        elif all_coords[y_axis[y]][x_axis[xd]] is not None and all_coords[y_axis[y]][x_axis[xd]].get_team() == team: break
+    for xd in range(x + 1, 8):
+        if all_coords[y_axis[y]][x_axis[xd]] is None:
+            moves.append(x_axis[xd] + y_axis[y])
+        elif all_coords[y_axis[y]][x_axis[xd]] is not None and all_coords[y_axis[y]][x_axis[xd]].get_team() != team:
+            moves.append(x_axis[xd] + y_axis[y])
+            break
+        elif all_coords[y_axis[y]][x_axis[xd]] is not None and all_coords[y_axis[y]][x_axis[xd]].get_team() == team: break
+    for yd in range(y - 1, -1, -1):
+        if all_coords[y_axis[yd]][x_axis[x]] is None:
+            moves.append(x_axis[x] + y_axis[yd])
+        elif all_coords[y_axis[yd]][x_axis[x]] is not None and all_coords[y_axis[yd]][x_axis[x]].get_team() != team:
+            moves.append(x_axis[x] + y_axis[yd])
+            break
+        elif all_coords[y_axis[yd]][x_axis[x]] is not None and all_coords[y_axis[yd]][x_axis[x]].get_team() == team: break
+    for yd in range(y + 1, 8):
+        if all_coords[y_axis[yd]][x_axis[x]] is None:
+            moves.append(x_axis[x] + y_axis[yd])
+        elif all_coords[y_axis[yd]][x_axis[x]] is not None and all_coords[y_axis[yd]][x_axis[x]].get_team() != team:
+            moves.append(x_axis[x] + y_axis[yd])
+            break
+        elif all_coords[y_axis[yd]][x_axis[x]] is not None and all_coords[y_axis[yd]][x_axis[x]].get_team() == team: break
+    return moves
+    
+
+def Queen_movement(place: dict(), team: str(), all_coords: dict()):
+    moves = Bishop_movement(place, team, all_coords) + Rook_movement(place, team, all_coords)
+    return moves

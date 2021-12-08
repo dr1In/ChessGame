@@ -10,7 +10,9 @@ def main():
     movements = {
         'pawn': Pawn_movement,
         'bishop': Bishop_movement,
-        'knight': Knight_movement
+        'knight': Knight_movement,
+        'rook': Rook_movement,
+        'queen': Queen_movement
     }
 
     #print(board.get_figures_coords())
