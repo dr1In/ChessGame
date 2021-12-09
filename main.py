@@ -37,7 +37,7 @@ def main():
         
         board.swap(cur_place, want)        
 
-        #system('CLS')
+        system('CLS')
         board.show()
 
     print('Игра окончена')
