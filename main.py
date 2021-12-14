@@ -12,7 +12,8 @@ def main():
         'bishop': Bishop_movement,
         'knight': Knight_movement,
         'rook': Rook_movement,
-        'queen': Queen_movement
+        'queen': Queen_movement,
+        'king': King_movement
     }
 
     #print(board.get_figures_coords())
@@ -37,7 +38,7 @@ def main():
         
         board.swap(cur_place, want)        
 
-        system('CLS')
+        #system('CLS')
         board.show()
 
     print('Игра окончена')

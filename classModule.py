@@ -226,3 +226,29 @@ def Rook_movement(place: dict(), team: str(), all_coords: dict()):
 def Queen_movement(place: dict(), team: str(), all_coords: dict()):
     moves = Bishop_movement(place, team, all_coords) + Rook_movement(place, team, all_coords)
     return moves
+
+
+def King_movement(place: dict(), team: str(), all_coords: dict()):
+    (x, y, moves, newmoves) = (x_axis.index(place[0]), int(place[-1]) - 1, [], [])
+    try: moves.append(x_axis[x - 1] + y_axis[y])
+    except IndexError: pass
+    try: moves.append(x_axis[x + 1] + y_axis[y])
+    except IndexError: pass
+    try: moves.append(x_axis[x] + y_axis[y - 1])
+    except IndexError: pass
+    try: moves.append(x_axis[x] + y_axis[y + 1])
+    except IndexError: pass
+    try: moves.append(x_axis[x - 1] + y_axis[y - 1])
+    except IndexError: pass
+    try: moves.append(x_axis[x - 1] + y_axis[y + 1])
+    except IndexError: pass
+    try: moves.append(x_axis[x + 1] + y_axis[y - 1])
+    except IndexError: pass
+    try: moves.append(x_axis[x - 1] + y_axis[y + 1])
+    except IndexError: pass
+    for item in moves:
+        (x, y) = (x_axis.index(item[0]), int(item[-1]) - 1)
+        if all_coords[y_axis[y]][x_axis[x]] is not None and all_coords[y_axis[y]][x_axis[x]].get_team() != team: newmoves.append(item)
+    return newmoves
+
+
