@@ -1,9 +1,16 @@
+from typing import TypeGuard
+
+
 x_axis = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
 y_axis = ['1', '2', '3', '4', '5', '6', '7', '8']
 
 class Board():
     def __init__(self, coords: dict()):
         self.figures_coords = coords
+        self.kings_pos = {
+            'white': 'd8',
+            'black': 'd1'
+        }
     
     def show(self):
         for_show = [[None for _ in range(8)] for __ in range(8)]
@@ -17,7 +24,7 @@ class Board():
         return self.figures_coords
 
     def get_kings_position(self):
-        pass
+        return self.kings_pos
 
     def get_figure_type_on_place(self, place: str()):
         return self.figures_coords[place[-1]][place[0]].get_type()
@@ -26,8 +33,14 @@ class Board():
         return self.figures_coords[place[-1]][place[0]].get_team()
 
     def swap(self, cur_place: str(), new_place: str()):
+        if self.figures_coords[new_place[-1]][new_place[0]] is not None and self.figures_coords[new_place[-1]][new_place[0]].get_type() == 'king':
+            self.figures_coords[new_place[-1]][new_place[0]] = self.figures_coords[cur_place[-1]][cur_place[0]]
+            self.figures_coords[cur_place[-1]][cur_place[0]] = None
+            return True
+
         self.figures_coords[new_place[-1]][new_place[0]] = self.figures_coords[cur_place[-1]][cur_place[0]]
         self.figures_coords[cur_place[-1]][cur_place[0]] = None
+        return False
 
 
 class Figure():
@@ -252,3 +265,5 @@ def King_movement(place: dict(), team: str(), all_coords: dict()):
     return newmoves
 
 
+def check_shah(team: str(), kings_pos: dict(), attack_pos: str()):
+    pass
