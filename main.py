@@ -17,6 +17,8 @@ def main():
         'king': King_movement
     }
 
+    
+
     #print(board.get_figures_coords())
     print('Пример хода: a2 a4')
 
