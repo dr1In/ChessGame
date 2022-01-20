@@ -63,7 +63,7 @@ class Board():
             self.figures_coords[cur_place[-1]][cur_place[0]] = None
             return True
 
-        self.figures_on_board[self.figures_coords[new_place[-1]][new_place[0]].get_team()][self.figures_coords[new_place[-1]][new_place[0]].get_type()] -= 1
+        
         self.figures_coords[new_place[-1]][new_place[0]] = self.figures_coords[cur_place[-1]][cur_place[0]]
         self.figures_coords[cur_place[-1]][cur_place[0]] = None
         return False
@@ -109,7 +109,7 @@ def Team_init():
         'rook': ' ♜ ',
         'bishop': ' ♝ ',
         'knight': ' ♞ ',
-        'pawn': ' ♟︎ '
+        'pawn': ' ♟ '
         }
     return {'white': figuresWhite, 'black': figuresBlack}
 
@@ -117,7 +117,7 @@ def Team_init():
 def First_realize():
     symboles = Team_init()
     coords = {f'{__ + 1}': {chr(97 + _): None for _ in range(8)} for __ in range(8)}
-    helper = ['rook', 'knight', 'bishop','king','queen','bishop','knight', 'rook']
+    helper = ['rook', 'knight', 'bishop','queen','king','bishop','knight', 'rook']
     for x in zip(x_axis, helper):
         coords['1'][x[0]] = Figure(x[-1], 'black', symboles['black'][x[-1]])
         coords['2'][x[0]] = Figure('pawn', 'black', symboles['black']['pawn'])
@@ -153,7 +153,7 @@ def Pawn_movement(place: dict(), team: str(), all_coords: dict()):
                 moves.append(x + f'{y + 2}')
         elif y > 2 and y <= 7 and all_coords[f'{y + 1}'][x] is None:
             moves.append(x + f'{y + 1}')
-
+        moves += Pawn_kill(place, team, all_coords)
     return moves
 
 

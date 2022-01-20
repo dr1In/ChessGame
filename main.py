@@ -1,5 +1,5 @@
 from classModule import *
-from os import system, terminal_size
+from os import system
 
 def main():
     team_now = 'black'
